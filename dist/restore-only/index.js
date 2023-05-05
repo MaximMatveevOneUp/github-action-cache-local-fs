@@ -5814,7 +5814,6 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         }
         for (const key of keys) {
-            core.info(`key1: ~${key}`);
             checkKey(key);
         }
         const compressionMethod = yield utils.getCompressionMethod();
@@ -5822,21 +5821,18 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         try {
             let matchedKey = "";
             for (const key of keys) {
-                core.info(`key: ~${key}`);
                 const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
                 
-                core.info(`cacheFilePath: ~${cacheFilePath}`);
                 try {
                     const stats = yield stat(cacheFilePath);
                     if (stats.isFile()) {
                         matchedKey = key;
                         archivePath = cacheFilePath;
-                        core.info(`archivePath: ~${archivePath}`);
                         break;
                     }
                 }
                 catch (error) {
-                    core.warning(`${error.message}`);
+                    //ignore
                 }
             }
             if (matchedKey === "") {

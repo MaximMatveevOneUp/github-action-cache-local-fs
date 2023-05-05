@@ -5808,8 +5808,8 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         checkPaths(paths);
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
-        core.warning("Resolved Keys:");
-        core.warning(JSON.stringify(keys));
+        core.debug("Resolved Keys:");
+        core.debug(JSON.stringify(keys));
         if (keys.length > 10) {
             throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         }
@@ -5821,8 +5821,8 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         try {
             let matchedKey = "";
             for (const key of keys) {
-                const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
                 try {
+                    const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
                     const stats = yield stat(cacheFilePath);
                     if (stats.isFile()) {
                         matchedKey = key;
@@ -5831,19 +5831,19 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
                     }
                 }
                 catch (error) {
-                    //ignore
+                    // ignore
                 }
             }
             if (matchedKey === "") {
                 // Cache not found
                 return undefined;
             }
-            core.warning(`Archive Path: ${archivePath}`);
+            core.debug(`Archive Path: ${archivePath}`);
             if (core.isDebug()) {
                 yield (0, tar_1.listTar)(archivePath, compressionMethod);
             }
             const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-            core.warning(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
+            core.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
             yield (0, tar_1.extractTar)(archivePath, compressionMethod);
             core.info("Cache restored successfully");
             return matchedKey;

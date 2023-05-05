@@ -5806,6 +5806,7 @@ exports.isFeatureAvailable = isFeatureAvailable;
 function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
     return __awaiter(this, void 0, void 0, function* () {
         checkPaths(paths);
+        core.warning("TEST");
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
         core.warning("Resolved Keys:");

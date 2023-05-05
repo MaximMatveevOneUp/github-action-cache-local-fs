@@ -5827,6 +5827,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
                 
                 core.info(`cacheFilePath: ~${cacheFilePath}`);
                 const stats = yield stat(cacheFilePath);
+                core.info(`cacheFilePath1: ~${cacheFilePath}`);
                 if (stats.isFile()) {
                     matchedKey = key;
                     archivePath = cacheFilePath;
@@ -5856,7 +5857,6 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             else {
                 // Supress all non-validation cache related errors because caching should be optional
                 core.warning(`Failed to restore: ${error.message}`);
-                core.warning(`Failed to restore: ${error}`);
             }
         }
         finally {

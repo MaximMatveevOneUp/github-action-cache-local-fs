@@ -5806,7 +5806,6 @@ exports.isFeatureAvailable = isFeatureAvailable;
 function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
     return __awaiter(this, void 0, void 0, function* () {
         checkPaths(paths);
-        core.warning("TEST");
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
         core.warning("Resolved Keys:");
@@ -5817,7 +5816,6 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         for (const key of keys) {
             checkKey(key);
         }
-        throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         const compressionMethod = yield utils.getCompressionMethod();
         let archivePath = "";
         try {
@@ -5842,9 +5840,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
             core.warning(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
             yield (0, tar_1.extractTar)(archivePath, compressionMethod);
-            throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
             core.info("Cache restored successfully");
-            core.info("TEST TEST");
             return matchedKey;
         }
         catch (error) {
@@ -9119,7 +9115,6 @@ function restoreImpl(stateProvider) {
             stateProvider.setState(constants_1.State.CacheMatchedKey, cacheKey);
             const isExactKeyMatch = utils.isExactKeyMatch(core.getInput(constants_1.Inputs.Key, { required: true }), cacheKey);
             core.setOutput(constants_1.Outputs.CacheHit, isExactKeyMatch.toString());
-            core.info(`Cache restored from key: ${cacheKey}`);
             core.info(`Cache restored from key: ${cacheKey}`);
             return cacheKey;
         }

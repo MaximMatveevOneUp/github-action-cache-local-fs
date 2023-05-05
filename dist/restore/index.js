@@ -9118,6 +9118,7 @@ function restoreImpl(stateProvider) {
             const isExactKeyMatch = utils.isExactKeyMatch(core.getInput(constants_1.Inputs.Key, { required: true }), cacheKey);
             core.setOutput(constants_1.Outputs.CacheHit, isExactKeyMatch.toString());
             core.info(`Cache restored from key: ${cacheKey}`);
+            core.info(`Cache restored from key: ${cacheKey}`);
             return cacheKey;
         }
         catch (error) {

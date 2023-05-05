@@ -5808,8 +5808,8 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         checkPaths(paths);
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
-        core.debug("Resolved Keys:");
-        core.debug(JSON.stringify(keys));
+        core.warning("Resolved Keys:");
+        core.warning(JSON.stringify(keys));
         if (keys.length > 10) {
             throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         }
@@ -5833,12 +5833,12 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
                 // Cache not found
                 return undefined;
             }
-            core.debug(`Archive Path: ${archivePath}`);
+            core.warning(`Archive Path: ${archivePath}`);
             if (core.isDebug()) {
                 yield (0, tar_1.listTar)(archivePath, compressionMethod);
             }
             const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-            core.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
+            core.warning(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
             yield (0, tar_1.extractTar)(archivePath, compressionMethod);
             core.info("Cache restored successfully");
             return matchedKey;

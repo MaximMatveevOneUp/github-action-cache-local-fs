@@ -5817,6 +5817,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         for (const key of keys) {
             checkKey(key);
         }
+        throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         const compressionMethod = yield utils.getCompressionMethod();
         let archivePath = "";
         try {

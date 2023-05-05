@@ -5842,6 +5842,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
             core.warning(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
             yield (0, tar_1.extractTar)(archivePath, compressionMethod);
+            throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
             core.info("Cache restored successfully");
             core.info("TEST TEST");
             return matchedKey;

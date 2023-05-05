@@ -5822,8 +5822,9 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         try {
             let matchedKey = "";
             for (const key of keys) {
-                const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
                 core.info(`key: ~${key}`);
+                const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
+                
                 core.info(`cacheFilePath: ~${cacheFilePath}`);
                 const stats = yield stat(cacheFilePath);
                 if (stats.isFile()) {
@@ -5855,6 +5856,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             else {
                 // Supress all non-validation cache related errors because caching should be optional
                 core.warning(`Failed to restore: ${error.message}`);
+                core.warning(`Failed to restore: ${error}`);
             }
         }
         finally {

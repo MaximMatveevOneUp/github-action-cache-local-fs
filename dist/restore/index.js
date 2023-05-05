@@ -5842,6 +5842,7 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
             core.warning(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
             yield (0, tar_1.extractTar)(archivePath, compressionMethod);
             core.info("Cache restored successfully");
+            core.info("TEST TEST");
             return matchedKey;
         }
         catch (error) {

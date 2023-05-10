@@ -5821,17 +5821,12 @@ function restoreCache(paths, primaryKey, restoreKeys, cacheBasePath) {
         try {
             let matchedKey = "";
             for (const key of keys) {
-                try {
-                    const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
-                    const stats = yield stat(cacheFilePath);
-                    if (stats.isFile()) {
-                        matchedKey = key;
-                        archivePath = cacheFilePath;
-                        break;
-                    }
-                }
-                catch (error) {
-                    // ignore
+                const cacheFilePath = path.join(utils.getCacheStorePath(cacheBasePath, key), utils.getCacheFileName(compressionMethod));
+                const stats = yield stat(cacheFilePath);
+                if (stats.isFile()) {
+                    matchedKey = key;
+                    archivePath = cacheFilePath;
+                    break;
                 }
             }
             if (matchedKey === "") {
